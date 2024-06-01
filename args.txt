@@ -1,5 +1,6 @@
 {
   "path": "/kaggle/input/art-painting/art-painting/img",
+  "output_path": "/kaggle/working/output",
   "cuda": 0,
   "name": "art_0",
   "iter": 50000,
