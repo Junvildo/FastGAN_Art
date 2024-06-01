@@ -15,7 +15,6 @@ import json
 from models import weights_init, Discriminator, Generator
 from operation import copy_G_params, load_params, get_dir
 from operation import ImageFolder, InfiniteSamplerWrapper
-from operation import MultiEpochsDataLoader, CudaDataLoader
 from diffaug import DiffAugment
 policy = 'color,translation,cutout'
 import lpips
