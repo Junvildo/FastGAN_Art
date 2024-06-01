@@ -38,6 +38,7 @@ def crop_image_by_part(image, part):
 def train_d(net, data, label="real"):
     """Train function of discriminator"""
     if label=="real":
+        part = random.randint(0, 3)
         pred, [rec_all, rec_small, rec_part], part = net(data, label, part=part)
         err = F.relu(  torch.rand_like(pred) * 0.2 + 0.8 -  pred).mean() + \
             percept( rec_all, F.interpolate(data, rec_all.shape[2]) ).sum() +\
