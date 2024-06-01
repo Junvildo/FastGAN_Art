@@ -215,7 +215,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    with open('./args.txt', 'rt') as f:
+    with open('/kaggle/working/FastGAN_Art/args.txt', 'rt') as f:
         t_args = argparse.Namespace()
         t_args.__dict__.update(json.load(f))
         args = parser.parse_args(namespace=t_args)
