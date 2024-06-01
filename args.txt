@@ -1,0 +1,10 @@
+{
+  "path": "/kaggle/input/art-painting/art-painting/img",
+  "cuda": 0,
+  "name": "art_0",
+  "iter": 50000,
+  "start_iter": 0,
+  "batch_size": 12,
+  "im_size": 256,
+  "ckpt": "None"
+}
