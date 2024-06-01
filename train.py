@@ -19,7 +19,7 @@ from operation import MultiEpochsDataLoader, CudaDataLoader
 from diffaug import DiffAugment
 policy = 'color,translation,cutout'
 import lpips
-percept = lpips.PerceptualLoss(model='net-lin', net='vgg', use_gpu=False)
+percept = lpips.PerceptualLoss(model='net-lin', net='vgg', use_gpu=True)
 
 
 #torch.backends.cudnn.benchmark = True
