@@ -38,7 +38,7 @@ def crop_image_by_part(image, part):
 def train_d(net, data, label="real"):
     """Train function of discriminator"""
     if label=="real":
-        pred, [rec_all, rec_small, rec_part], part = net(data, label)
+        pred, [rec_all, rec_small, rec_part], part = net(data, label, part=part)
         err = F.relu(  torch.rand_like(pred) * 0.2 + 0.8 -  pred).mean() + \
             percept( rec_all, F.interpolate(data, rec_all.shape[2]) ).sum() +\
             percept( rec_small, F.interpolate(data, rec_small.shape[2]) ).sum() +\
@@ -113,16 +113,15 @@ def train(args):
 
     fixed_noise = torch.FloatTensor(8, nz).normal_(0, 1).to(device)
 
-    if multi_gpu:
-        netG = nn.DataParallel(netG.cuda())
-        netD = nn.DataParallel(netD.cuda())
-
+    
     optimizerG = optim.Adam(netG.parameters(), lr=nlr, betas=(nbeta1, 0.999))
     optimizerD = optim.Adam(netD.parameters(), lr=nlr, betas=(nbeta1, 0.999))
-        
+
+            
     # Initialize the learning rate schedulers
     schedulerG = CosineAnnealingWarmRestarts(optimizerG, T_0=1000, T_mult=1, eta_min=1e-5)
     schedulerD = CosineAnnealingWarmRestarts(optimizerD, T_0=1000, T_mult=1, eta_min=1e-5)
+
 
     if checkpoint != 'None':
         ckpt = torch.load(checkpoint)
@@ -134,6 +133,12 @@ def train(args):
         current_iteration = int(checkpoint.split('_')[-1].split('.')[0])
         del ckpt
 
+
+    if multi_gpu:
+        netG = nn.DataParallel(netG.cuda())
+        netD = nn.DataParallel(netD.cuda())
+
+    
     loss_d = []
     loss_g = []
 
